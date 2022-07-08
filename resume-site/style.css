@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
 
+:root {
+    --bg-main: #fff;
+    --bg-secondary: #003147;
+    --bg-page: lightblue;
+    --txt-light: #fff;
+    --txt-dark: #003147;
+    --symbols: #03a9f4;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -8,7 +17,7 @@
 }
 
 body{
-    background: lightblue;
+    background: var(--bg-page);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +29,7 @@ body{
     width: 100%;
     max-width: 1000px;
     min-height: 1000px;
-    background: #fff;
+    background: var(--bg-main);
     display: grid;
     grid-template-columns: 1fr 2fr;
     box-shadow: 0 35px 55px rgba(0, 0, 0, 0.1);
@@ -29,13 +38,13 @@ body{
 
 .container .left_side{
     position: relative;
-    background: #003147;
+    background: var(--bg-secondary);
     padding: 40px;
 }
 
 .container .right_side{
     position: relative;
-    background: #fff;
+    background: var(--bg-main);
     padding: 40px; 
 }
 
@@ -66,7 +75,7 @@ body{
 }
 
 .profiletext .name{
-    color: #fff;
+    color: var(--txt-light);
     font-size: 1.5em;
     margin-top: 20px;
     text-transform: uppercase;
@@ -101,17 +110,17 @@ body{
     display: inline-block;
     width: 30px;
     font-size: 18px;
-    color: #03a9f4
+    color: var(--symbols)
 }
 
 .contactInfo ul li span{
-    color: #fff;
+    color: var(--txt-light);
     font-size: 12px;
     font-weight: 300;
 }
 
 .contactInfo ul li span .link{
-    color: #fff;
+    color: var(--txt-light);
     font-size: 12px;
     font-weight: 300;
 }
@@ -120,23 +129,23 @@ body{
 }
 
 .contactInfo.education h5{
-    color: #03a9f4;
+    color: var(--symbols);
     font-weight: 500;
 }
 
 .contactInfo.education h4:nth-child(2){
-    color: #fff;
+    color: var(--txt-light);
     font-weight: 500;
     
 }
 
 .contactInfo.education h4{
-    color: #fff;
+    color: var(--txt-light);
     font-weight: 300;
 
 }
 .title{
-    color: #fff;
+    color: var(--txt-light);
 }
 
 .about{
@@ -148,7 +157,7 @@ body{
 }
 
 .title2{
-    color: #003147;
+    color: var(--txt-dark);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 10px;
@@ -156,6 +165,5 @@ body{
 }
 
 p{
-    color: #333;
-
+    color: var(--txt-dark);
 }
