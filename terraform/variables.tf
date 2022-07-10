@@ -1,12 +1,14 @@
-#variable "domain_name" {
-#  type = string
-#  description = "The domain name of the website"
-#}
+variable "domain_name" {
+  type        = string
+  description = "The domain name of the website"
+}
 
-#variable "bucket_name" {
-#  type = string
-#}
+variable "zone_id" {
+  type        = string
+  description = "ID of route53 hosted zone"
+}
 
-#variable "common_tags" {
-#  
-#}
+variable "certificate_arn" {
+  type        = string
+  description = "ARN of SSL cert"
+}
