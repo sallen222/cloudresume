@@ -29,7 +29,7 @@ resource "aws_s3_bucket" "resume-bucket" {
 
 resource "aws_s3_bucket_acl" "resume-bucket-acl" {
   bucket = aws_s3_bucket.resume-bucket.id
-  acl    = "public-read"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_website_configuration" "resume-web-config" {
@@ -107,8 +107,7 @@ resource "aws_route53_record" "r53-record-aaaa" {
 resource "aws_cloudfront_distribution" "resume_distribution" {
   origin {
     domain_name = aws_s3_bucket.resume-bucket.bucket_domain_name
-    #IDK if this local is right
-    origin_id = aws_s3_bucket.resume-bucket.id
+    origin_id   = aws_s3_bucket.resume-bucket.id
 
     s3_origin_config {
       origin_access_identity = "origin-access-identity/cloudfront/${aws_cloudfront_origin_access_identity.resume-OAI.id}"
@@ -119,7 +118,7 @@ resource "aws_cloudfront_distribution" "resume_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = [ "sallen.me" ]
+  aliases = [var.domain_name]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
