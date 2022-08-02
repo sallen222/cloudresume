@@ -84,8 +84,23 @@ body{
     line-height: 1.4em;
 }
 
+.counter{
+    padding-top: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.counterText{
+    color: var(--symbols);
+}
+
+.counter .title{
+    font-weight: 500;
+}
+
 .contactInfo{
-    padding-top: 40px;
+    padding-top: 20px;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 1px;
