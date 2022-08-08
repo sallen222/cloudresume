@@ -1,4 +1,4 @@
-let apiEndpoint = 'https://m2slb4zkvg.execute-api.us-east-1.amazonaws.com/';
+let apiEndpoint = 'https://9630xasc6c.execute-api.us-east-1.amazonaws.com/';
 
 $.post(apiEndpoint+'counter/counter')
 
