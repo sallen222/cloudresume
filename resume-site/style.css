@@ -179,6 +179,14 @@ body{
 
 }
 
+.title3{
+    color: var(--txt-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
 p{
     color: var(--txt-dark);
 }
