@@ -1,0 +1,89 @@
+# TODO: Invalidate CF, maybe js linting
+name: "cloud resume backend deploy"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:  
+  tflint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      name: Checkout source code
+
+    - uses: terraform-linters/setup-tflint@v2
+      name: setup tflint
+      with:
+        tflint_version: v0.39.2
+
+    - name: init tflint
+      run: tflint --init
+
+    - name: run tflint
+      run: tflint -f compact
+
+  terraform:
+      name: "terraform"
+      runs-on: ubuntu-latest
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        WORKING_DIR: ./terraform
+
+      defaults:
+        run:
+          shell: bash
+
+      steps:
+        - name: checkout
+          uses: actions/checkout@v3
+
+        - name: terraform setup
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: 1.2.4
+
+        - name: terraform init
+          working-directory: ${{ env.WORKING_DIR }}
+          env: 
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          run: terraform init
+        
+        - name: terraform fmt
+          working-directory: ${{ env.WORKING_DIR  }}
+          run: terraform fmt -check
+
+        - name: terraform plan
+          working-directory: ${{ env.WORKING_DIR  }}
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          run: terraform plan
+        
+        - name: terraform apply
+          working-directory: ${{ env.WORKING_DIR  }}
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+          run: terraform apply -auto-approve
+        
+        - name: terraform outputs
+          working-directory: ${{ env.WORKING_DIR  }}
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          run: DISTRIBUTION=$(terraform output cf-distribution)
+
+        - name: Invalidate CloudFront
+          uses: chetan/invalidate-cloudfront-action@v2
+          env:
+            DISTRIBUTION: ${{ env.DISTRIBUTION }}
+            PATHS: "/index.html /script.js /error.html"
+            AWS_REGION: "us-east-1"
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
