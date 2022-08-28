@@ -77,18 +77,11 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           run: terraform apply -auto-approve
-        
-        - name: terraform outputs
-          working-directory: ${{ env.WORKING_DIR  }}
-          env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          run: DISTRIBUTION=$(terraform output cf-distribution)
 
         - name: Invalidate CloudFront
           uses: chetan/invalidate-cloudfront-action@v2
           env:
-            DISTRIBUTION: ${{ env.DISTRIBUTION }}
+            DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
             PATHS: "/index.html /script.js /error.html"
             AWS_REGION: "us-east-1"
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
