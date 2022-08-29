@@ -78,7 +78,7 @@ jobs:
           if: github.ref == 'refs/heads/main' && github.event_name == 'push'
           run: terraform apply -auto-approve
 
-        - name: Invalidate CloudFront
+        - name: invalidate cloudFront
           uses: chetan/invalidate-cloudfront-action@v2
           env:
             DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
