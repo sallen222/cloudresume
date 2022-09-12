@@ -25,6 +25,7 @@ locals {
     map  = "application/javascript"
     json = "application/json"
     jpg  = "image/jpg"
+    png  = "image/png"
   }
 }
 
