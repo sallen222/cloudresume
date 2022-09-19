@@ -34,3 +34,4 @@ override.tf.json
 terraform.rc
 .infracost
 *.exe
+.terraform.lock.hcl
