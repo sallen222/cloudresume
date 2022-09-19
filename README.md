@@ -1,5 +1,7 @@
 # Cloud Resume Challenge Frontend
 
+![Alt text](diagram.jpg?raw=true "Title")
+
 Backend Repo: https://github.com/sallen222/cloudresume-backend
 
 This repo contains the frontend infrastructure of my cloud resume project. 
