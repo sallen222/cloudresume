@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "resume-site/**"
+      - "terraform/**"
+      - ".github/workflows/**"
 
 jobs:  
   tflint:
