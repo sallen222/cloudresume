@@ -164,7 +164,7 @@ body{
 }
 
 .about{
-    margin-bottom: 50px;
+    margin-bottom: 35px;
 }
 
 .about:last-child{
@@ -195,4 +195,13 @@ p{
     color: var(--symbols);
     font-weight: 400;
     font-size: .75em;
+}
+
+.jobtitle{
+    font-weight: 400;
+}
+
+.time{
+    font-weight: 400;
+    float: right;
 }
